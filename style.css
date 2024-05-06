@@ -47,3 +47,46 @@ body{
     grid-template-columns: 1fr 1fr ;
     gap: 10px;
 }
+
+.next-quiz-button{
+    margin-top: 24px;
+}
+
+button{
+    background-color: #8b00fd;
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:not(:disabled):hover{
+    background-color: #ad4cfc;
+
+}
+
+.start-quiz-button{
+    width: 350px;
+    height: 100px;
+}
+
+.hide{
+    display: none;
+}
+
+.correct{
+    background-color: #3cff006c;
+}
+
+
+.incorrect{
+    background-color: #ff0000;
+}
+
+.answer-button:disabled{
+    cursor: not-allowed;
+}
