@@ -8,6 +8,7 @@ startQuizButton.addEventListener("click", startQuiz)
 nextQuestionButton.addEventListener("click", displayNextQuestion)
 
 let currentQuestionIndex = 0
+let totalCorrect = 0 
 
 function startQuiz() {
     startQuizButton.classList.add("hide")
@@ -15,13 +16,12 @@ function startQuiz() {
     displayNextQuestion()
 }
 
-function displayNextQuestion(){
-    while(answersContainer.firstChild){
-        answersContainer.removeChild(answersContainer.firstChild)
-    }
+function displayNextQuestion(){   
+    resetState()
 
-    document.body.removeAttribute("class")
-    nextQuestionButton.classList.add("hide")    
+    if (questions.length === currentQuestionIndex) {
+        return finishGame()
+    }
 
     questionText.textContent = questions[currentQuestionIndex].question
     questions[currentQuestionIndex].answers.forEach(answer =>{
@@ -37,11 +37,21 @@ function displayNextQuestion(){
     })
 }
 
+function resetState() {
+    while(answersContainer.firstChild){
+        answersContainer.removeChild(answersContainer.firstChild)
+    }
+
+    document.body.removeAttribute("class")
+    nextQuestionButton.classList.add("hide")
+}
+
 function selectAnswer(event) {
     const answerClicked = event.target
 
     if (answerClicked.dataset.correct) {
         document.body.classList.add("correct")
+        totalCorrect++
         } else {
             document.body.classList.add("incorrect")
         }
@@ -58,6 +68,38 @@ function selectAnswer(event) {
 
     nextQuestionButton.classList.remove("hide")
     currentQuestionIndex++
+}
+
+function finishGame() {
+    const totalQuestions = questions.length
+    const performace = Math.floor(totalCorrect * 100  / totalQuestions)
+
+    let message = ""
+
+    switch (true) {
+        case(performace > 80): 
+            message = "Excelente !"
+            break
+        case(performace > 60): 
+            message = "Muito bem !"
+            break
+        case(performace > 40): 
+            message = "Bom !"
+            break
+        default:
+            message = "Ruin !"
+}
+
+questionContainer.innerHTML =  
+`
+<p class="final-message">
+    Você acertou ${totalCorrect} de ${totalQuestions} Perguntas !
+    <p> ${message} </p>
+</p>
+<button onclick=window.location.reload()>
+    Refazer Quiz
+</button>
+`
 }
 
 

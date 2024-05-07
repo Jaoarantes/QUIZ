@@ -90,3 +90,13 @@ button:not(:disabled):hover{
 .answer-button:disabled{
     cursor: not-allowed;
 }
+
+.final-message{
+    font-size: 1.5em; 
+    text-align: center;
+}
+
+.final-message p {
+    display: block;
+    margin-top: 10px; 
+}
